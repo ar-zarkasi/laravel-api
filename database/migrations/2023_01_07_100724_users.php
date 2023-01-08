@@ -92,6 +92,10 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_branches');
+        Schema::dropIfExists('reset_password');
+        Schema::dropIfExists('user_auth');
+        Schema::dropIfExists('settings_user');
     }
 };

@@ -63,7 +63,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index(['email','phone'],'idx_vendor_contact');
-            $table->index(['vendor_name','vendor_company','pic_phone'],'idx_identity_vendor');
+            $table->index(['vendor_name','vendor_company','phone'],'idx_identity_vendor');
             $table->fullText('tag','idx_tag_vendor');
         });
     }
