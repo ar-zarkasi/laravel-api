@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Users;
 use Illuminate\Http\Request;
 
+use App\Interfaces\Authentication\UserInterface;
+
 class UserController extends Controller
 {
+    protected $userInterface;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->userInterface = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,11 +23,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = Users::all();
-        return response()->json([
-            'status'=>true,
-            'data'=>$users,
-        ]);
+        $users = $this->userInterface->getAllUsers();
+        return $this->success("Users Collected", $users);
     }
 
     /**

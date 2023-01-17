@@ -8,10 +8,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\Uuid;
 
 class Users extends Model
 {
-    use HasFactory, HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, HasApiTokens, HasFactory, Notifiable, Uuid;
     
     protected $table = 'users';
     protected $primaryKey = 'id';
