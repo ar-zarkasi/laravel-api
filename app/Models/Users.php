@@ -13,6 +13,8 @@ class Users extends Model
 {
     use HasFactory, HasApiTokens, HasFactory, Notifiable;
     
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'uuid',
         'fullname',
