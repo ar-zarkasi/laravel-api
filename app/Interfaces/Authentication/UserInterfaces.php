@@ -8,5 +8,8 @@ interface UserInterface extends BaseRepository
 {
     public function getAllUsers(): Collection;
     public function getUserById(int $id): Model;
+    public function getUserByEmail(string $id): Model;
+    public function getUserByPhone(string $id): Model;
+    public function getUserByUsername(string $id): Model;
     public function getFilteredUsers($params): Collection;
 }

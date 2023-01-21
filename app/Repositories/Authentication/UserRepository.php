@@ -18,23 +18,47 @@ class UserRepository extends EloquentRepository implements UserInterface
     public function getAllUsers() : Collection
     {
         return $this->model
-            ->with([])
+            ->with($this->with)
             ->get();
     }
 
     public function getUserById($id): Model
     {
         return $this->model
-            ->with([])
+            ->with($this->with)
             ->where('id', $id)
             ->where('active', 1)
+            ->firstOrNew();
+    }
+
+    public function getUserByEmail(string $id): Model
+    {
+        return $this->model
+            ->with($this->with)
+            ->where('email', $id)
+            ->firstOrNew();
+    }
+
+    public function getUserByPhone(string $id): Model
+    {
+        return $this->model
+            ->with($this->with)
+            ->where('phone', $id)
+            ->firstOrNew();
+    }
+
+    public function getUserByUsername(string $id): Model
+    {
+        return $this->model
+            ->with($this->with)
+            ->where('username', $id)
             ->firstOrNew();
     }
 
     public function getFilteredUsers($params): Collection
     {
         $el = $this->model
-            ->with([]);
+            ->with($this->with);
         
         foreach ($params as $key => $value) {
             $el->where($key, $value);
