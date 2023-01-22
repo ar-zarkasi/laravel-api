@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
+    "name": "ar-zarkasi/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The Laravel Framework. with custom provided for personal use",
+    "keywords": ["framework", "laravel", "repository pattern"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
