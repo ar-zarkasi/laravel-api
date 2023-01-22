@@ -35,4 +35,13 @@ class Users extends Model
     
     public $regex_email = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     public $regex_phone = '^(?:(?:\+|00) [1-9] [0-9]{0,2}|0)[1-9][0-9]{9}$';
+
+    public function getRoles()
+    {
+        return $this->belongsTo(Roles::class,'id_roles','id');
+    }
+    public function getAuth()
+    {
+        return $this->hasMany(UserAuth::class,'id_user','id');
+    }
 }

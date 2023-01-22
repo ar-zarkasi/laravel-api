@@ -5,15 +5,12 @@ namespace App\Repositories\Authentication;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-use App\Http\Requests\UserRequest;
 use App\Interfaces\Authentication\UserInterface;
 use App\Repositories\EloquentRepository;
-use App\Models\User;
-use DB;
 
 class UserRepository extends EloquentRepository implements UserInterface
 {
-    protected $with = [];
+    protected $with = ['getAuth','getRoles'];
 
     public function getAllUsers() : Collection
     {
@@ -22,7 +19,7 @@ class UserRepository extends EloquentRepository implements UserInterface
             ->get();
     }
 
-    public function getUserById($id): Model
+    public function getUserById(int $id): Model
     {
         return $this->model
             ->with($this->with)

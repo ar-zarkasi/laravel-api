@@ -3,10 +3,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use App\Services\Authentication\UserAuthentication;
+use App\Traits\ResponseAPI;
 
-class CustomAuthMiddleware
+class AdminAuth
 {
+    use ResponseAPI;
+
     protected $userService;
 
     public function __construct(UserAuthentication $userInterface)
@@ -20,17 +24,21 @@ class CustomAuthMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $token = $request->header('Authorization');
         if($token){
             //get token data from your table
-            $tokenData = Token::where('token',$token)->first();
+            $tokenExists = $this->userService->cekToken($token);
             //check if token is valid and not expired
-            if($tokenData && $tokenData->is_valid){
-                //set user on request
-                $request->user = $tokenData->user;
-                return $next($request);
+            if($tokenExists){
+                // get user data
+                $tokenData = $this->userService->getUserByToken($token);
+                if($tokenData != false){
+                    //set user on request
+                    $request->user = $tokenData;
+                    return $next($request);   
+                }
             }
         }
         return response()->json(['error' => 'Unauthorized'], 401);

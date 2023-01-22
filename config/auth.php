@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver'=>'token',
+            'provider'=>'users',
+            'hash' => false,
+        ]
     ],
 
     /*
@@ -65,10 +70,10 @@ return [
             'model' => App\Models\Users::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users_mobile' => [
+            'driver' => 'database',
+            'table' => 'users',
+        ],
     ],
 
     /*

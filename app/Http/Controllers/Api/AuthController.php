@@ -8,20 +8,24 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\LoginRequest;
 
-use App\Interfaces\Authentication\UserInterface;
+use App\Services\Authentication\UserAuthentication;
 
 class AuthController extends Controller
 {
-    protected $userInterface;
+    protected $userService;
 
-    public function __construct(UserInterface $user)
+    public function __construct(UserAuthentication $user)
     {
-        $this->userInterface = $user;
+        $this->userService = $user;
     }
     
     public function login(LoginRequest $request)
     {
-        $params = $request->all();
-        
+        $login = $this->userService->login($request);
+        if($login['error']) {
+            return $this->error($login['message'],$login['code']);
+        }
+
+        return $this->success($login['message'],$login['data']);
     }
 }

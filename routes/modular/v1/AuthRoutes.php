@@ -17,5 +17,9 @@ class AuthRoutes
             Route::post('login', [AuthController::class, 'login'])->name('auth.login');
             Route::post('register', [AuthController::class, 'register'])->name('auth.register');
         });
+
+        Route::middleware('auth.admin')->prefix('user')->group(function(){
+            Route::post('detail',[AuthController::class,'detail'])->name('auth.detail');
+        });
     }
 }
