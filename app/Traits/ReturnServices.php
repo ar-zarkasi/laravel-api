@@ -27,4 +27,22 @@ trait ReturnServices {
         ];
     }
 
+    public function errorValidation($validator)
+    {
+        $errStr ='';
+        foreach ($validator->errors()->getMessages() as $key => $errorField) {
+            $errStr .= $key.' : ';
+            $start = 0;
+            foreach ($errorField as $errorMessage) {
+                if($start++!=0)
+                    $errStr .= " | ";    
+                $errStr .= $errorMessage;
+            }
+
+            $errStr .= "\n";
+            
+        }
+        return $errStr;
+    }
+
 }

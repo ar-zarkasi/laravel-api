@@ -3,6 +3,7 @@ namespace CustomRouting\v1;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Request;
 
 class AuthRoutes
 {
@@ -18,8 +19,8 @@ class AuthRoutes
             Route::post('register', [AuthController::class, 'register'])->name('auth.register');
         });
 
-        Route::middleware('auth.admin')->prefix('user')->group(function(){
-            Route::post('detail',[AuthController::class,'detail'])->name('auth.detail');
+        Route::middleware(['auth.user.admin'])->prefix('user')->group(function(){
+            Route::get('detail',[AuthController::class,'getDetail'])->name('auth.detail');
         });
     }
 }

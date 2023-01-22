@@ -10,7 +10,7 @@ use App\Repositories\EloquentRepository;
 
 class UserRepository extends EloquentRepository implements UserInterface
 {
-    protected $with = ['getAuth','getRoles'];
+    protected $with = ['token_table','roles'];
 
     public function getAllUsers() : Collection
     {

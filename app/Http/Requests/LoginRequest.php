@@ -7,7 +7,7 @@ use App\Traits\FailValidation;
 
 class LoginRequest extends FormRequest
 {
-    use FailValidation;
+    // use FailValidation;
 
     private $regex_email = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
     private $regex_phone = '^(?:(?:\+|00) [1-9] [0-9]{0,2}|0)[1-9][0-9]{9}$';

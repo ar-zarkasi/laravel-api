@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
 
 class initSeeder extends Seeder
 {
@@ -26,17 +28,20 @@ class initSeeder extends Seeder
             ['id'=>7, 'roles_name'=>'staff marketing'],
             ['id'=>8, 'roles_name'=>'agent'],
         ]);
+        $now = Carbon::now()->toDateTimeString();
         DB::table('users')->insert([
             [
                 'id'=>1,
+                'uuid'=>Uuid::uuid4()->toString(),
                 'fullname'=>'Administrator',
                 'password'=>Hash::make('admin'),
                 'username'=>'admin',
                 'email'=>'admin@technergysolution.com',
-                'phone'=>null,
+                'phone'=>'628080980988',
                 'salt'=>Hash::make(env('APP_KEY','qwerty12345')),
                 'id_roles'=>1,
                 'active'=>1,
+                'created_at'=>$now,
             ]
         ]);
     }

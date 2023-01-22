@@ -16,10 +16,10 @@ trait ResponseAPI {
 
         // Send the response
         return response()->json([
+            'code' => $statusCode,
+            'data' => $data,
             'message' => $message,
             'error' => !$isSuccess,
-            'code' => $statusCode,
-            'data' => $data
         ], $statusCode);
     }
 
@@ -41,8 +41,26 @@ trait ResponseAPI {
      * @param   string          $message
      * @param   integer         $statusCode    
      */
-    public function error($message, $statusCode = 500)
+    public function error($message, $data = [], $statusCode = 500)
     {
-        return $this->coreResponse($message, null, $statusCode, false);
+        return $this->coreResponse($message, $data, $statusCode, false);
+    }
+
+    public function errorValidation($validator, $data = [])
+    {
+        $errStr ='';
+        foreach ($validator->errors()->getMessages() as $key => $errorField) {
+            $errStr .= $key.' : ';
+            $start = 0;
+            foreach ($errorField as $errorMessage) {
+                if($start++!=0)
+                    $errStr .= " | ";    
+                $errStr .= $errorMessage;
+            }
+
+            $errStr .= "\n";
+            
+        }
+        return $this->coreResponse($errStr, $data, 422, false);
     }
 }

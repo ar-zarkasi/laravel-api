@@ -12,9 +12,14 @@ class UserResource extends JsonResource
             'name' => $this->fullname,
             'email' => $this->email,
             'phone' => $this->phone,
+            'id_roles' => $this->id_roles,
             $this->mergeWhen(
-                $this->relationLoaded('getRoles'),
-                ['roles'=>$this->getRoles->roles_name]
+                $this->whenLoaded('roles'),
+                ['roles'=>$this->roles->roles_name]
+            ),
+            $this->mergeWhen(
+                $this->whenLoaded('token_table'),
+                ['has_token'=>$this->token_table]
             ),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

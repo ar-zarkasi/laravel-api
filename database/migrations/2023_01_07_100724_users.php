@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('roles_name',100)->nullable(false);
+            $table->index('roles_name','idx_roles');
+        });
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('uuid',24)->nullable(false)->unique();
+            $table->string('uuid',120)->nullable(false)->unique();
             $table->string('fullname',160)->nullable(false);
             $table->text('password')->nullable(false);
             $table->string('username',120)->nullable();

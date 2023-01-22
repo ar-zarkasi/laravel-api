@@ -9,7 +9,7 @@ use App\Repositories\EloquentRepository;
 
 class TokenRepository extends EloquentRepository implements TokenInterface
 {
-    protected $with = ['getUser'];
+    protected $with = ['getUser', 'getUser.roles'];
 
     public function getTokenByUser(int $id): Model
     {
@@ -21,6 +21,7 @@ class TokenRepository extends EloquentRepository implements TokenInterface
 
     public function getUserByToken(string $token): Model
     {
+        $token = str_replace('Bearer ',"",$token);
         return $this->model
             ->with($this->with)
             ->where('token', $token)
